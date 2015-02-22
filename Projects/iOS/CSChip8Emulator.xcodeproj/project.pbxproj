@@ -44,6 +44,7 @@
 		81DB6CAD1A5C8A8A00ED47CE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81DB6CAC1A5C8A8A00ED47CE /* AVFoundation.framework */; };
 		81DB6CAF1A5C8AAD00ED47CE /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81DB6CAE1A5C8AAC00ED47CE /* CoreMedia.framework */; };
 		FB243D4C1A98CBE700EFAC69 /* Chip8State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB243D4A1A98CBE700EFAC69 /* Chip8State.cpp */; };
+		FBE422D21A9A595E000F6C1A /* Chip8.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FBE422D01A9A595E000F6C1A /* Chip8.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,8 @@
 		81DB6CAE1A5C8AAC00ED47CE /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		FB243D4A1A98CBE700EFAC69 /* Chip8State.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Chip8State.cpp; sourceTree = "<group>"; };
 		FB243D4B1A98CBE700EFAC69 /* Chip8State.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chip8State.h; sourceTree = "<group>"; };
+		FBE422D01A9A595E000F6C1A /* Chip8.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Chip8.cpp; sourceTree = "<group>"; };
+		FBE422D11A9A595E000F6C1A /* Chip8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chip8.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +221,8 @@
 				FB243D4B1A98CBE700EFAC69 /* Chip8State.h */,
 				81CFA14319EE9177003C8436 /* App.cpp */,
 				81CFA14419EE9177003C8436 /* App.h */,
+				FBE422D01A9A595E000F6C1A /* Chip8.cpp */,
+				FBE422D11A9A595E000F6C1A /* Chip8.h */,
 			);
 			name = AppSource;
 			path = ../../AppSource;
@@ -343,6 +348,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81CFA14719EE9177003C8436 /* App.cpp in Sources */,
+				FBE422D21A9A595E000F6C1A /* Chip8.cpp in Sources */,
 				FB243D4C1A98CBE700EFAC69 /* Chip8State.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
