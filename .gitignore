@@ -1,2 +1,4 @@
 Projects/iOS/XcodeBuiltAssets
 *.xcuserstate
+*.xccheckout
+*.xcbkptlist
