@@ -10,40 +10,36 @@
 
 #include <ChilliSource/Core/Base/Application.h>
 #include <ChilliSource/Core/File.h>
+#include <ChilliSource/Core/Math.h>
 
 //    0NNN 	Calls RCA 1802 program at address NNN.
-//    00EE 	Returns from a subroutine.
-//    1NNN 	Jumps to address NNN.
-//    3XNN 	Skips the next instruction if VX equals NN.
-//    4XNN 	Skips the next instruction if VX doesn't equal NN.
-//    5XY0 	Skips the next instruction if VX equals VY.
-//    6XNN 	Sets VX to NN.
-//    7XNN 	Adds NN to VX.
-//    8XY5 	VY is subtracted from VX. VF is set to 0 when there's a borrow, and 1 when there isn't.
-//    8XY6 	Shifts VX right by one. VF is set to the value of the least significant bit of VX before the shift.[2]
-//    8XY7 	Sets VX to VY minus VX. VF is set to 0 when there's a borrow, and 1 when there isn't.
-//    8XYE 	Shifts VX left by one. VF is set to the value of the most significant bit of VX before the shift.[2]
-//    9XY0 	Skips the next instruction if VX doesn't equal VY.
-//    ANNN 	Sets I to the address NNN.
-//    BNNN 	Jumps to the address NNN plus V0.
-//    CXNN 	Sets VX to a random number, masked by NN.
-//    DXYN 	Sprites stored in memory at location in index register (I), maximum 8bits wide. Wraps around the screen. If when drawn, clears a pixel, register VF is set to 1 otherwise it is zero. All drawing is XOR drawing (i.e. it toggles the screen pixels)
-//    EX9E 	Skips the next instruction if the key stored in VX is pressed.
-//    EXA1 	Skips the next instruction if the key stored in VX isn't pressed.
-//    FX07 	Sets VX to the value of the delay timer.
-//    FX0A 	A key press is awaited, and then stored in VX.
-//    FX15 	Sets the delay timer to VX.
-//    FX18 	Sets the sound timer to VX.
-//    FX1E 	Adds VX to I.[3]
-//    FX29 	Sets I to the location of the sprite for the character in VX. Characters 0-F (in hexadecimal) are represented by a 4x5 font.
-//    FX55 	Stores V0 to VX in memory starting at address I.[4]
-//    FX65 	Fills V0 to VX with values from memory starting at address I.[4]
+//TODO
 
 namespace
 {
     using OpCode = u16;
     
     u32 k_initMemOffset = 0x200;
+    
+    u8 k_fontSet[80] =
+    {
+        0xF0, 0x90, 0x90, 0x90, 0xF0, // 0
+        0x20, 0x60, 0x20, 0x20, 0x70, // 1
+        0xF0, 0x10, 0xF0, 0x80, 0xF0, // 2
+        0xF0, 0x10, 0xF0, 0x10, 0xF0, // 3
+        0x90, 0x90, 0xF0, 0x10, 0x10, // 4
+        0xF0, 0x80, 0xF0, 0x10, 0xF0, // 5
+        0xF0, 0x80, 0xF0, 0x90, 0xF0, // 6
+        0xF0, 0x10, 0x20, 0x40, 0x40, // 7
+        0xF0, 0x90, 0xF0, 0x90, 0xF0, // 8
+        0xF0, 0x90, 0xF0, 0x10, 0xF0, // 9
+        0xF0, 0x90, 0xF0, 0x90, 0x90, // A
+        0xE0, 0x90, 0xE0, 0x90, 0xE0, // B
+        0xF0, 0x80, 0x80, 0x80, 0xF0, // C
+        0xE0, 0x90, 0x90, 0x90, 0xE0, // D
+        0xF0, 0x80, 0xF0, 0x80, 0xF0, // E
+        0xF0, 0x80, 0xF0, 0x80, 0x80  // F
+    };
 }
 
 namespace OpCodeActions
@@ -51,8 +47,16 @@ namespace OpCodeActions
     //0x00E0
     void ClearScreen(OpCode in_opCode, Chip8::State& inout_state)
     {
-        CS_LOG_VERBOSE("Clear");
         std::fill(std::begin(inout_state.m_graphicsState), std::end(inout_state.m_graphicsState), 0);
+        inout_state.m_programCounter += 2;
+        
+        //TODO: Set dirty flag
+    }
+    
+    //0x1NNN
+    void Jump(OpCode in_opCode, Chip8::State& inout_state)
+    {
+        inout_state.m_programCounter = in_opCode & 0x0FFF;
     }
     
     //0x2NNN
@@ -63,28 +67,72 @@ namespace OpCodeActions
         inout_state.m_programCounter = in_opCode & 0x0FFF;
     }
     
+    //0x00EE
+    void ReturnSubroutine(OpCode in_opCode, Chip8::State& inout_state)
+    {
+        --inout_state.m_stackPointer;
+        inout_state.m_programCounter = inout_state.m_stack[inout_state.m_stackPointer];
+        inout_state.m_programCounter += 2;
+    }
+    
+    //0x3XNN
+    void SkipInstructionIfVXeqNN(OpCode in_opCode, Chip8::State& inout_state)
+    {
+        inout_state.m_programCounter += inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8] == inout_state.m_vRegs[in_opCode & 0x00FF] ? 4 : 2;
+    }
+    
+    //0x4XNN
+    void SkipInstructionIfVXnoteqNN(OpCode in_opCode, Chip8::State& inout_state)
+    {
+        inout_state.m_programCounter += inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8] != inout_state.m_vRegs[in_opCode & 0x00FF] ? 4 : 2;
+    }
+    
+    //0x5XY0
+    void SkipInstructionIfVXeqVY(OpCode in_opCode, Chip8::State& inout_state)
+    {
+        inout_state.m_programCounter += inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8] == inout_state.m_vRegs[(in_opCode & 0x00F0) >> 4] ? 4 : 2;
+    }
+    
+    //0x6XNN
+    void SetVXtoNN(OpCode in_opCode, Chip8::State& inout_state)
+    {
+        inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8] = inout_state.m_vRegs[in_opCode & 0x00FF];
+        inout_state.m_programCounter += 2;
+    }
+    
+    //0x7XNN
+    void AddNNtoVX(OpCode in_opCode, Chip8::State& inout_state)
+    {
+        inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8] += inout_state.m_vRegs[in_opCode & 0x00FF];
+        inout_state.m_programCounter += 2;
+    }
+    
     //0x8XY0
     void SetVXtoVY(OpCode in_opCode, Chip8::State& inout_state)
     {
         inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8] = inout_state.m_vRegs[(in_opCode & 0x00F0) >> 4];
+        inout_state.m_programCounter += 2;
     }
     
     //0x8XY1
     void SetVXtoVXorVY(OpCode in_opCode, Chip8::State& inout_state)
     {
         inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8] = inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8] | inout_state.m_vRegs[(in_opCode & 0x00F0) >> 4];
+        inout_state.m_programCounter += 2;
     }
     
     //0x8XY2
     void SetVXtoVXandVY(OpCode in_opCode, Chip8::State& inout_state)
     {
         inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8] = inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8] & inout_state.m_vRegs[(in_opCode & 0x00F0) >> 4];
+        inout_state.m_programCounter += 2;
     }
     
     //0x8XY3
     void SetVXtoVXxorVY(OpCode in_opCode, Chip8::State& inout_state)
     {
         inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8] = inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8] ^ inout_state.m_vRegs[(in_opCode & 0x00F0) >> 4];
+        inout_state.m_programCounter += 2;
     }
     
     //0x8XY4
@@ -92,7 +140,7 @@ namespace OpCodeActions
     {
         if(inout_state.m_vRegs[(in_opCode & 0x00F0) >> 4] > (0xFF - inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8]))
         {
-            inout_state.m_vRegs[0xF] = 1; //carry
+            inout_state.m_vRegs[0xF] = 1; //Carry
         }
         else
         {
@@ -103,6 +151,80 @@ namespace OpCodeActions
         inout_state.m_programCounter += 2;
     }
     
+    //0x8XY5
+    void SubtractVYfromVX(OpCode in_opCode, Chip8::State& inout_state)
+    {
+        if(inout_state.m_vRegs[(in_opCode & 0x00F0) >> 4] > (inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8]))
+        {
+            inout_state.m_vRegs[0xF] = 0; //Borrow
+        }
+        else
+        {
+            inout_state.m_vRegs[0xF] = 1;
+        }
+        inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8] -= inout_state.m_vRegs[(in_opCode & 0x00F0) >> 4];
+        
+        inout_state.m_programCounter += 2;
+    }
+    
+    //0x8XY6
+    void ShiftVXRight(OpCode in_opCode, Chip8::State& inout_state)
+    {
+        inout_state.m_vRegs[0xF] = inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8] & 0x1;
+        inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8] >>= 1;
+        inout_state.m_programCounter += 2;
+    }
+    
+    //0x8XY7
+    void SetVXtoVYminusVX(OpCode in_opCode, Chip8::State& inout_state)
+    {
+        if(inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8] > inout_state.m_vRegs[(in_opCode & 0x00F0) >> 4])	// VY-VX
+        {
+            inout_state.m_vRegs[0xF] = 0; //Borrow
+        }
+        else
+        {
+            inout_state.m_vRegs[0xF] = 1;
+        }
+        inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8] = inout_state.m_vRegs[(in_opCode & 0x00F0) >> 4] - inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8];
+
+        inout_state.m_programCounter += 2;
+    }
+    
+    //0x8XYE
+    void ShiftVXLeft(OpCode in_opCode, Chip8::State& inout_state)
+    {
+        inout_state.m_vRegs[0xF] = inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8] >> 7;
+        inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8] <<= 1;
+        inout_state.m_programCounter += 2;
+    }
+    
+    //0x9XY0
+    void SkipInstructionIfVXnoteqVY(OpCode in_opCode, Chip8::State& inout_state)
+    {
+        inout_state.m_programCounter += inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8] != inout_state.m_vRegs[(in_opCode & 0x00F0) >> 4] ? 4 : 2;
+    }
+    
+    //0xANNN
+    void SetItoNNN(OpCode in_opCode, Chip8::State& inout_state)
+    {
+        inout_state.m_iReg = in_opCode & 0x0FFF;
+        inout_state.m_programCounter += 2;
+    }
+    
+    //0xBNNN
+    void JumpPlus(OpCode in_opCode, Chip8::State& inout_state)
+    {
+        inout_state.m_programCounter = (in_opCode & 0x0FFF) + inout_state.m_vRegs[0];
+    }
+    
+    //0xCXNN
+    void SetVXtoRand(OpCode in_opCode, Chip8::State& inout_state)
+    {
+        inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8] = (CSCore::Random::Generate<s32>() % 0xFF) & (in_opCode & 0x00FF);
+        inout_state.m_programCounter += 2;
+    }
+    
     //0xFX33
     void StoreBinaryCodedVX(OpCode in_opCode, Chip8::State& inout_state)
     {
@@ -110,6 +232,132 @@ namespace OpCodeActions
         inout_state.m_memory[inout_state.m_iReg + 1] = (inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8] / 10) % 10;
         inout_state.m_memory[inout_state.m_iReg + 2] = (inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8] % 100) % 10;
         
+        inout_state.m_programCounter += 2;
+    }
+    
+    //0xDXYN
+    void TogglePixel(OpCode in_opCode, Chip8::State& inout_state)
+    {
+        auto x = inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8];
+        auto y = inout_state.m_vRegs[(in_opCode & 0x00F0) >> 4];
+        auto height = in_opCode & 0x000F;
+        u16 pixel = 0;
+        
+        inout_state.m_vRegs[0xF] = 0;
+        for (auto yline = 0; yline < height; yline++)
+        {
+            pixel = inout_state.m_memory[inout_state.m_iReg + yline];
+            for(auto xline = 0; xline < 8; xline++)
+            {
+                if((pixel & (0x80 >> xline)) != 0)
+                {
+                    if(inout_state.m_graphicsState[(x + xline + ((y + yline) * 64))] == 1)
+                    {
+                        inout_state.m_vRegs[0xF] = 1;
+                    }
+                    inout_state.m_graphicsState[x + xline + ((y + yline) * 64)] ^= 1;
+                }
+            }
+        }
+        
+        //TODO: Set dirty flag
+        
+        inout_state.m_programCounter += 2;
+    }
+    
+    //0xEX9E
+    void SkipInstructionIfVXPressed(OpCode in_opCode, Chip8::State& inout_state)
+    {
+        inout_state.m_programCounter += inout_state.m_keyState[inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8]] != 0 ? 4 : 2;
+    }
+    
+    //0xEXA1
+    void SkipInstructionIfVXNotPressed(OpCode in_opCode, Chip8::State& inout_state)
+    {
+        inout_state.m_programCounter += inout_state.m_keyState[inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8]] == 0 ? 4 : 2;
+    }
+    
+    //0xFX07
+    void SetVXToDelayTimer(OpCode in_opCode, Chip8::State& inout_state)
+    {
+        inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8] = inout_state.m_delayTimer;
+        inout_state.m_programCounter += 2;
+    }
+    
+    //0xFX15
+    void SetDelayTimerToVX(OpCode in_opCode, Chip8::State& inout_state)
+    {
+        inout_state.m_delayTimer = inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8];
+        inout_state.m_programCounter += 2;
+    }
+    
+    //0xFX18
+    void SetSoundTimerToVX(OpCode in_opCode, Chip8::State& inout_state)
+    {
+        inout_state.m_soundTimer = inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8];
+        inout_state.m_programCounter += 2;
+    }
+    
+    //0xFX1E: Adds VX to I
+    void AddVXtoI(OpCode in_opCode, Chip8::State& inout_state)
+    {
+        if(inout_state.m_iReg + inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8] > 0xFFF)
+        {
+            inout_state.m_vRegs[0xF] = 1; //Carry
+        }
+        else
+        {
+            inout_state.m_vRegs[0xF] = 0;
+        }
+        inout_state.m_iReg += inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8];
+        
+        inout_state.m_programCounter += 2;
+    }
+    
+    //0xFX0A
+    void AwaitKeyPress(OpCode in_opCode, Chip8::State& inout_state)
+    {
+        //If a key is pressed we jump to the next instruction otherwise we wait here
+        for(auto i=0; i<16; ++i)
+        {
+            if(inout_state.m_keyState[i] != 0)
+            {
+                inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8] = i;
+                inout_state.m_programCounter += 2;
+            }
+        }
+    }
+    
+    //0xFX29
+    void SetItoSpriteLocationForVX(OpCode in_opCode, Chip8::State& inout_state)
+    {
+        inout_state.m_iReg = inout_state.m_vRegs[(in_opCode & 0x0F00) >> 8] * 0x5;
+        
+        inout_state.m_programCounter += 2;
+    }
+    
+    //0xFX55
+    void StoreVRegs(OpCode in_opCode, Chip8::State& inout_state)
+    {
+        for (auto i=0; i<=((in_opCode & 0x0F00) >> 8); ++i)
+        {
+            inout_state.m_memory[inout_state.m_iReg + i] = inout_state.m_vRegs[i];
+        }
+        
+        inout_state.m_iReg += ((in_opCode & 0x0F00) >> 8) + 1;
+        inout_state.m_programCounter += 2;
+    }
+    
+    //0xFX65
+    void FillVRegs(OpCode in_opCode, Chip8::State& inout_state)
+    {
+        for (auto i=0; i<=((in_opCode & 0x0F00) >> 8); ++i)
+        {
+            inout_state.m_vRegs[i] = inout_state.m_memory[inout_state.m_iReg + i];
+        }
+        
+        // On the original interpreter, when the operation is done, I = I + X + 1.
+        inout_state.m_iReg += ((in_opCode & 0x0F00) >> 8) + 1;
         inout_state.m_programCounter += 2;
     }
 }
@@ -163,6 +411,9 @@ void Chip8::Reset()
     m_state.m_soundTimer = 0;
     //The program counter is offset as traditionally the interpreter would occupy the first 512 bytes.
     m_state.m_programCounter = k_initMemOffset;
+    
+    //Load the font set into memory
+    std::copy(std::begin(k_fontSet), std::end(k_fontSet), m_state.m_memory);
 }
 
 void Chip8::LoadROM(const std::string& in_romPath)
