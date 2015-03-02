@@ -13,11 +13,11 @@ class Chip8State : public CSCore::State
 public:
 
 	void OnInit() override;
-	void OnUpdate(f32 in_dt) override;
+	void OnFixedUpdate(f32 in_dt) override;
 
 private:
     
-    Chip8 m_chip8;
+    Chip8* m_chip8;
 
 	f32 m_executionTimer;
 };

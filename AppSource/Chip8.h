@@ -10,6 +10,7 @@
 #define _CHIP_8_
 
 #include <ChilliSource/ChilliSource.h>
+#include <ChilliSource/Core/Delegate.h>
 
 #include <algorithm>
 #include <functional>
@@ -19,11 +20,12 @@ class Chip8
 {
 public:
     
-    Chip8();
+    Chip8(CSCore::Scene* in_scene);
     
     void Reset();
     void LoadROM(const std::string& in_romPath);
     void FetchDecodeExecute();
+    void Draw();
     
     struct State
     {
@@ -41,11 +43,17 @@ public:
         
         u32 m_delayTimer;
         u32 m_soundTimer;
+        
+        bool m_shouldRedraw;
     };
     
 private:
     
     State m_state;
+    
+    CSRendering::SpriteComponentSPtr m_sprites[64 * 32];
+    CSCore::EntitySPtr m_entities[64 * 32];
+    CSCore::Scene* m_scene;
 };
 
 #endif

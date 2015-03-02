@@ -44,6 +44,8 @@
 		81DB6CAD1A5C8A8A00ED47CE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81DB6CAC1A5C8A8A00ED47CE /* AVFoundation.framework */; };
 		81DB6CAF1A5C8AAD00ED47CE /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81DB6CAE1A5C8AAC00ED47CE /* CoreMedia.framework */; };
 		FB243D4C1A98CBE700EFAC69 /* Chip8State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB243D4A1A98CBE700EFAC69 /* Chip8State.cpp */; };
+		FB279FA21AA261E000368449 /* OpCodeActions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB279FA01AA261E000368449 /* OpCodeActions.cpp */; };
+		FB28C5301AA4FC3100145CC0 /* OpCodeUnitTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB28C52E1AA4FC3100145CC0 /* OpCodeUnitTests.cpp */; };
 		FBE422D21A9A595E000F6C1A /* Chip8.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FBE422D01A9A595E000F6C1A /* Chip8.cpp */; };
 /* End PBXBuildFile section */
 
@@ -100,6 +102,10 @@
 		81DB6CAE1A5C8AAC00ED47CE /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		FB243D4A1A98CBE700EFAC69 /* Chip8State.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Chip8State.cpp; sourceTree = "<group>"; };
 		FB243D4B1A98CBE700EFAC69 /* Chip8State.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chip8State.h; sourceTree = "<group>"; };
+		FB279FA01AA261E000368449 /* OpCodeActions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpCodeActions.cpp; sourceTree = "<group>"; };
+		FB279FA11AA261E000368449 /* OpCodeActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpCodeActions.h; sourceTree = "<group>"; };
+		FB28C52E1AA4FC3100145CC0 /* OpCodeUnitTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpCodeUnitTests.cpp; sourceTree = "<group>"; };
+		FB28C52F1AA4FC3100145CC0 /* OpCodeUnitTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpCodeUnitTests.h; sourceTree = "<group>"; };
 		FBE422D01A9A595E000F6C1A /* Chip8.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Chip8.cpp; sourceTree = "<group>"; };
 		FBE422D11A9A595E000F6C1A /* Chip8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chip8.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -223,6 +229,10 @@
 				81CFA14419EE9177003C8436 /* App.h */,
 				FBE422D01A9A595E000F6C1A /* Chip8.cpp */,
 				FBE422D11A9A595E000F6C1A /* Chip8.h */,
+				FB279FA01AA261E000368449 /* OpCodeActions.cpp */,
+				FB279FA11AA261E000368449 /* OpCodeActions.h */,
+				FB28C52E1AA4FC3100145CC0 /* OpCodeUnitTests.cpp */,
+				FB28C52F1AA4FC3100145CC0 /* OpCodeUnitTests.h */,
 			);
 			name = AppSource;
 			path = ../../AppSource;
@@ -348,6 +358,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				81CFA14719EE9177003C8436 /* App.cpp in Sources */,
+				FB279FA21AA261E000368449 /* OpCodeActions.cpp in Sources */,
+				FB28C5301AA4FC3100145CC0 /* OpCodeUnitTests.cpp in Sources */,
 				FBE422D21A9A595E000F6C1A /* Chip8.cpp in Sources */,
 				FB243D4C1A98CBE700EFAC69 /* Chip8State.cpp in Sources */,
 			);
