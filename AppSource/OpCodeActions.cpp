@@ -29,11 +29,11 @@ namespace OpCodeActions
         auto actionIt = OpCodeActions::k_actions.find(subCode);
         if(actionIt != OpCodeActions::k_actions.end())
         {
-            actionIt->second(subCode, inout_state);
+            actionIt->second(in_opCode, inout_state);
         }
         else
         {
-            OpCodeActions::NoOp(subCode, inout_state);
+            OpCodeActions::NoOp(in_opCode, inout_state);
         }
     }
     
@@ -107,11 +107,11 @@ namespace OpCodeActions
         auto actionIt = OpCodeActions::k_actions.find(subCode);
         if(actionIt != OpCodeActions::k_actions.end())
         {
-            actionIt->second(subCode, inout_state);
+            actionIt->second(in_opCode, inout_state);
         }
         else
         {
-            OpCodeActions::NoOp(subCode, inout_state);
+            OpCodeActions::NoOp(in_opCode, inout_state);
         }
     }
     
@@ -272,11 +272,11 @@ namespace OpCodeActions
         auto actionIt = OpCodeActions::k_actions.find(subCode);
         if(actionIt != OpCodeActions::k_actions.end())
         {
-            actionIt->second(subCode, inout_state);
+            actionIt->second(in_opCode, inout_state);
         }
         else
         {
-            OpCodeActions::NoOp(subCode, inout_state);
+            OpCodeActions::NoOp(in_opCode, inout_state);
         }
     }
     
@@ -300,11 +300,11 @@ namespace OpCodeActions
         auto actionIt = OpCodeActions::k_actions.find(subCode);
         if(actionIt != OpCodeActions::k_actions.end())
         {
-            actionIt->second(subCode, inout_state);
+            actionIt->second(in_opCode, inout_state);
         }
         else
         {
-            OpCodeActions::NoOp(subCode, inout_state);
+            OpCodeActions::NoOp(in_opCode, inout_state);
         }
     }
     
