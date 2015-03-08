@@ -12,6 +12,8 @@
 #include "Chip8MutableState.h"
 #include "OpCodeActions.h"
 
+#include <functional>
+
 class Chip8CPU
 {
 public:

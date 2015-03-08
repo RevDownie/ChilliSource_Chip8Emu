@@ -12,11 +12,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\AppSource\App.cpp" />
-    <ClCompile Include="..\..\AppSource\State.cpp" />
+    <ClCompile Include="..\..\AppSource\Chip8CPU.cpp" />
+    <ClCompile Include="..\..\AppSource\Chip8Keyboard.cpp" />
+    <ClCompile Include="..\..\AppSource\Chip8Renderer.cpp" />
+    <ClCompile Include="..\..\AppSource\Chip8State.cpp" />
+    <ClCompile Include="..\..\AppSource\OpCodeActions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\AppSource\App.h" />
-    <ClInclude Include="..\..\AppSource\State.h" />
+    <ClInclude Include="..\..\AppSource\Chip8Constants.h" />
+    <ClInclude Include="..\..\AppSource\Chip8CPU.h" />
+    <ClInclude Include="..\..\AppSource\Chip8Keyboard.h" />
+    <ClInclude Include="..\..\AppSource\Chip8MutableState.h" />
+    <ClInclude Include="..\..\AppSource\Chip8Renderer.h" />
+    <ClInclude Include="..\..\AppSource\Chip8State.h" />
+    <ClInclude Include="..\..\AppSource\OpCodeActions.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{29AA6F17-26E4-48A0-95B4-8945F33A71A1}</ProjectGuid>
