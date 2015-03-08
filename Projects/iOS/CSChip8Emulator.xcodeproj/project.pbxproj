@@ -45,8 +45,8 @@
 		81DB6CAF1A5C8AAD00ED47CE /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81DB6CAE1A5C8AAC00ED47CE /* CoreMedia.framework */; };
 		FB243D4C1A98CBE700EFAC69 /* Chip8State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB243D4A1A98CBE700EFAC69 /* Chip8State.cpp */; };
 		FB279FA21AA261E000368449 /* OpCodeActions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB279FA01AA261E000368449 /* OpCodeActions.cpp */; };
-		FB28C5301AA4FC3100145CC0 /* OpCodeUnitTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB28C52E1AA4FC3100145CC0 /* OpCodeUnitTests.cpp */; };
-		FBE422D21A9A595E000F6C1A /* Chip8.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FBE422D01A9A595E000F6C1A /* Chip8.cpp */; };
+		FB32521E1AAB961C00035082 /* Chip8CPU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB32521C1AAB961C00035082 /* Chip8CPU.cpp */; };
+		FB3252221AAB976E00035082 /* Chip8Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB3252201AAB976E00035082 /* Chip8Renderer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,10 +104,12 @@
 		FB243D4B1A98CBE700EFAC69 /* Chip8State.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chip8State.h; sourceTree = "<group>"; };
 		FB279FA01AA261E000368449 /* OpCodeActions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpCodeActions.cpp; sourceTree = "<group>"; };
 		FB279FA11AA261E000368449 /* OpCodeActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpCodeActions.h; sourceTree = "<group>"; };
-		FB28C52E1AA4FC3100145CC0 /* OpCodeUnitTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpCodeUnitTests.cpp; sourceTree = "<group>"; };
-		FB28C52F1AA4FC3100145CC0 /* OpCodeUnitTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpCodeUnitTests.h; sourceTree = "<group>"; };
-		FBE422D01A9A595E000F6C1A /* Chip8.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Chip8.cpp; sourceTree = "<group>"; };
-		FBE422D11A9A595E000F6C1A /* Chip8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chip8.h; sourceTree = "<group>"; };
+		FB32521C1AAB961C00035082 /* Chip8CPU.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Chip8CPU.cpp; sourceTree = "<group>"; };
+		FB32521D1AAB961C00035082 /* Chip8CPU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chip8CPU.h; sourceTree = "<group>"; };
+		FB3252201AAB976E00035082 /* Chip8Renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Chip8Renderer.cpp; sourceTree = "<group>"; };
+		FB3252211AAB976E00035082 /* Chip8Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chip8Renderer.h; sourceTree = "<group>"; };
+		FB3252231AAB9BDB00035082 /* Chip8Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Chip8Constants.h; sourceTree = "<group>"; };
+		FB3252241AAB9E5B00035082 /* Chip8MutableState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Chip8MutableState.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,12 +229,14 @@
 				FB243D4B1A98CBE700EFAC69 /* Chip8State.h */,
 				81CFA14319EE9177003C8436 /* App.cpp */,
 				81CFA14419EE9177003C8436 /* App.h */,
-				FBE422D01A9A595E000F6C1A /* Chip8.cpp */,
-				FBE422D11A9A595E000F6C1A /* Chip8.h */,
 				FB279FA01AA261E000368449 /* OpCodeActions.cpp */,
 				FB279FA11AA261E000368449 /* OpCodeActions.h */,
-				FB28C52E1AA4FC3100145CC0 /* OpCodeUnitTests.cpp */,
-				FB28C52F1AA4FC3100145CC0 /* OpCodeUnitTests.h */,
+				FB32521C1AAB961C00035082 /* Chip8CPU.cpp */,
+				FB32521D1AAB961C00035082 /* Chip8CPU.h */,
+				FB3252201AAB976E00035082 /* Chip8Renderer.cpp */,
+				FB3252211AAB976E00035082 /* Chip8Renderer.h */,
+				FB3252231AAB9BDB00035082 /* Chip8Constants.h */,
+				FB3252241AAB9E5B00035082 /* Chip8MutableState.h */,
 			);
 			name = AppSource;
 			path = ../../AppSource;
@@ -359,9 +363,9 @@
 			files = (
 				81CFA14719EE9177003C8436 /* App.cpp in Sources */,
 				FB279FA21AA261E000368449 /* OpCodeActions.cpp in Sources */,
-				FB28C5301AA4FC3100145CC0 /* OpCodeUnitTests.cpp in Sources */,
-				FBE422D21A9A595E000F6C1A /* Chip8.cpp in Sources */,
 				FB243D4C1A98CBE700EFAC69 /* Chip8State.cpp in Sources */,
+				FB3252221AAB976E00035082 /* Chip8Renderer.cpp in Sources */,
+				FB32521E1AAB961C00035082 /* Chip8CPU.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
