@@ -49,6 +49,7 @@ void Chip8State::Reset()
 //----------------------------------------------------------------
 void Chip8State::OnFixedUpdate(f32 in_dt)
 {
+    m_keyboard.UpdateKeyStates(m_state);
     m_cpu.FetchDecodeExecute(m_state);
     m_renderer.Draw(m_state);
 }

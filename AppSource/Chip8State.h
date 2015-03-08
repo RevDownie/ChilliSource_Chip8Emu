@@ -7,6 +7,7 @@
 #include "Chip8MutableState.h"
 #include "Chip8CPU.h"
 #include "Chip8Renderer.h"
+#include "Chip8Keyboard.h"
 
 class Chip8State : public CSCore::State
 {
@@ -51,6 +52,7 @@ private:
 
     Chip8Renderer m_renderer;
     Chip8CPU m_cpu;
+    Chip8Keyboard m_keyboard;
     Chip8MutableState m_state;
 };
 
