@@ -12,6 +12,14 @@
 #include "Chip8MutableState.h"
 #include "OpCodeActions.h"
 
+//----------------------------------------------------------------
+/// Simulates the fetch, decode and execute cycle of the chip-8
+/// cpu. This will alter memory, registers and timers.
+///
+/// Timers are updated at 60hz. CPU runs at 600 ops per second.
+///
+/// @author S Downie.
+//----------------------------------------------------------------
 class Chip8CPU
 {
 public:

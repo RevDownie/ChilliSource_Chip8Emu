@@ -7,7 +7,9 @@
 //----------------------------------------------------------------
 void Chip8State::OnInit()
 {
-    LoadROM("Roms/BRIX");
+    CSCore::Application::Get()->SetUpdateInterval(1.0f/(f32)Chip8Constants::k_framesPerSecond);
+    
+    LoadROM("Roms/PONG");
     
     m_renderer.Build(GetScene());
 }

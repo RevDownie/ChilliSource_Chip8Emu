@@ -26,24 +26,17 @@ namespace
         return in_memory[in_programCounter] << 8 | in_memory[in_programCounter + 1];
     }
     //----------------------------------------------------------------
-    /// Tick the given timer and call the given function when the timer
-    /// reaches zero.
+    /// Tick the given timer towards zero.
     ///
     /// @author S Downie
     ///
     /// @param in_timer - Timer to decrement
-    /// @param in_onTimerEnded - Function to call when timer reaches zero.
     //----------------------------------------------------------------
-    u8 UpdateTimer(u8 in_timer, const std::function<void()>& in_onTimerEnded)
+    u8 UpdateTimer(u8 in_timer)
     {
         if (in_timer > 0)
         {
             --in_timer;
-            
-            if (in_timer == 0)
-            {
-                in_onTimerEnded();
-            }
         }
         
         return in_timer;
@@ -100,18 +93,23 @@ Chip8CPU::Chip8CPU()
 //----------------------------------------------------------------
 void Chip8CPU::FetchDecodeExecute(Chip8MutableState& inout_state)
 {
-    auto nextOpCode = FetchNextOpcode(inout_state.m_memory, inout_state.m_programCounter);
-    auto action = Decode(nextOpCode);
+    for(u32 i=0; i<Chip8Constants::k_opsPerUpdate; ++i)
+    {
+        auto nextOpCode = FetchNextOpcode(inout_state.m_memory, inout_state.m_programCounter);
+        auto action = Decode(nextOpCode);
     
-    //Execute decoded action which will change the chip state.
-    action(inout_state);
+        //Execute decoded action which will change the chip state.
+        action(inout_state);
+    }
     
-    inout_state.m_delayTimer = UpdateTimer(inout_state.m_delayTimer, [](){});
+    //Timers are updated at 60Hz independently of opcodes.
+    inout_state.m_delayTimer = UpdateTimer(inout_state.m_delayTimer);
+    inout_state.m_soundTimer = UpdateTimer(inout_state.m_soundTimer);
     
-    inout_state.m_soundTimer = UpdateTimer(inout_state.m_soundTimer, []()
+    if(inout_state.m_soundTimer > 0)
     {
         CS_LOG_VERBOSE("Beep!");
-    });
+    }
 }
 //----------------------------------------------------------------
 //----------------------------------------------------------------
