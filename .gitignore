@@ -3,3 +3,11 @@ Projects/iOS/XcodeBuiltAssets
 *.xccheckout
 *.xcbkptlist
 *.xcsettings
+Projects/Windows/csobj/
+Projects/Windows/bin/
+Projects/Windows/obj/
+*.opensdf
+*.sdf
+*.suo
+*.user
+Projects/Windows/csbin/

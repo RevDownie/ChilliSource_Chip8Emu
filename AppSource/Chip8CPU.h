@@ -12,6 +12,8 @@
 #include "Chip8MutableState.h"
 #include "OpCodeActions.h"
 
+#include <functional>
+
 //----------------------------------------------------------------
 /// Simulates the fetch, decode and execute cycle of the chip-8
 /// cpu. This will alter memory, registers and timers.
@@ -23,7 +25,7 @@
 class Chip8CPU
 {
 public:
-    
+
     //----------------------------------------------------------------
     /// Constructor that sets up all the opcodes
     ///
@@ -39,9 +41,9 @@ public:
     /// @param inout_state - The current state of the VM to modify
     //----------------------------------------------------------------
     void FetchDecodeExecute(Chip8MutableState& inout_state);
-    
+
 private:
-    
+
     //----------------------------------------------------------------
     /// Convert the opcode to an executable function
     ///
@@ -88,9 +90,9 @@ private:
     /// @param inout_state - State to mutate
     //----------------------------------------------------------------
     void xFNNN(OpCode in_opCode, Chip8MutableState& inout_state);
-    
+
 private:
-    
+
     std::function<void(OpCode, Chip8MutableState&)> m_opcodeActions[0xF066];
 };
 
