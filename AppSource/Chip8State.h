@@ -8,6 +8,7 @@
 #include "Chip8CPU.h"
 #include "Chip8Renderer.h"
 #include "Chip8Keyboard.h"
+#include "UIRomPicker.h"
 
 class Chip8State : public CSCore::State
 {
@@ -54,6 +55,7 @@ private:
     Chip8CPU m_cpu;
     Chip8Keyboard m_keyboard;
     Chip8MutableState m_state;
+	UIRomPicker m_picker;
 };
 
 #endif

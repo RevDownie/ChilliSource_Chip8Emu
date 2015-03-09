@@ -7,9 +7,15 @@
 //----------------------------------------------------------------
 void Chip8State::OnInit()
 {
-    LoadROM("Roms/BRIX");
-    
     m_renderer.Build(GetScene());
+
+	m_picker.Show([=](const std::string& in_romPath)
+	{
+		if (in_romPath.size() > 0)
+		{
+			LoadROM(in_romPath);
+		}
+	});
 }
 //----------------------------------------------------------------
 //----------------------------------------------------------------
