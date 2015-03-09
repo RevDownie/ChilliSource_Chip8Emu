@@ -32,8 +32,12 @@ void Chip8Renderer::Build(CSCore::Scene* in_scene)
     auto materialFactory = CSCore::Application::Get()->GetSystem<CSRendering::MaterialFactory>();
     auto renderFactory = CSCore::Application::Get()->GetSystem<CSRendering::RenderComponentFactory>();
     auto resourcePool = CSCore::Application::Get()->GetResourcePool();
-    CSRendering::MaterialCSPtr material = materialFactory->CreateSprite("Sprite", resourcePool->LoadResource<CSRendering::Texture>(CSCore::StorageLocation::k_package, "Textures/White.png"));
+    CSRendering::MaterialCSPtr material = resourcePool->GetResource<CSRendering::Material>("Sprite");
     
+    if(material == nullptr)
+    {
+        material = materialFactory->CreateSprite("Sprite", resourcePool->LoadResource<CSRendering::Texture>(CSCore::StorageLocation::k_package, "Textures/White.png"));
+    }
     
     for(s32 i=0; i<m_sprites.size(); ++i)
     {

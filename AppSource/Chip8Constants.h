@@ -11,6 +11,10 @@
 
 namespace Chip8Constants
 {
+    const u32 k_framesPerSecond = 60;
+    const u32 k_opsPerSecond = 600;
+    const u32 k_opsPerUpdate = k_opsPerSecond/k_framesPerSecond;
+    
     const s32 k_screenWidth = 64;
     const s32 k_screenHeight = 32;
     const s32 k_screenResolution = k_screenWidth * k_screenHeight;

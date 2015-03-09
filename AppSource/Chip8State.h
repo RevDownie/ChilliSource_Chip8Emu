@@ -3,17 +3,25 @@
 
 #include <ChilliSource/ChilliSource.h>
 #include <ChilliSource/Core/State/State.h>
+#include <ChilliSource/Core/Delegate.h>
 
 #include "Chip8MutableState.h"
 #include "Chip8CPU.h"
 #include "Chip8Renderer.h"
 #include "Chip8Keyboard.h"
-#include "UIRomPicker.h"
 
 class Chip8State : public CSCore::State
 {
 public:
 
+    //----------------------------------------------------------------
+    /// Construct the state with the ROM at the given file stream
+    ///
+    /// @author S Downie
+    ///
+    /// @param in_romStream - Stream to load ROM from.
+    //----------------------------------------------------------------
+    Chip8State(CSCore::FileStreamUPtr in_romStream);
     //----------------------------------------------------------------
     /// Initialise the memory, registers and timers. Creates
     /// the renderer
@@ -34,19 +42,23 @@ public:
 private:
     
     //----------------------------------------------------------------
-    /// Load the Chip8 Rom at the given path into VM memory
+    /// Load the Chip8 Rom from the rom stream into VM memory
     ///
     /// @author S Downie
-    ///
-    /// @param in_romPath - Rom path in package.
     //----------------------------------------------------------------
-    void LoadROM(const std::string& in_romPath);
+    void LoadROM();
     //----------------------------------------------------------------
     /// Reset the VM back to its initial state
     ///
     /// @author S Downie
     //----------------------------------------------------------------
     void Reset();
+    //----------------------------------------------------------------
+    /// Load in-game hud, including reset and pause buttons.
+    ///
+    /// @author S Downie
+    //----------------------------------------------------------------
+    void LoadInGameHud();
 
 private:
     
@@ -55,7 +67,13 @@ private:
     Chip8CPU m_cpu;
     Chip8Keyboard m_keyboard;
     Chip8MutableState m_state;
-	UIRomPicker m_picker;
+    
+    CSCore::FileStreamUPtr m_romStream;
+    CSCore::EventConnectionUPtr m_pauseButtonConnection;
+    CSCore::EventConnectionUPtr m_resetButtonConnection;
+    
+    bool m_paused = false;
+    bool m_reset = false;
 };
 
 #endif

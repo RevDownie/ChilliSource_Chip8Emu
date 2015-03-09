@@ -46,6 +46,8 @@
 		FB243D4C1A98CBE700EFAC69 /* Chip8State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB243D4A1A98CBE700EFAC69 /* Chip8State.cpp */; };
 		FB2524D51AAC623D0075ADE5 /* Chip8Keyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB2524D31AAC623D0075ADE5 /* Chip8Keyboard.cpp */; };
 		FB279FA21AA261E000368449 /* OpCodeActions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB279FA01AA261E000368449 /* OpCodeActions.cpp */; };
+		FB2C0FE11AAE5B2900416129 /* UIRomPicker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB2C0FDF1AAE5B2900416129 /* UIRomPicker.cpp */; };
+		FB2C0FE51AAE5D1300416129 /* RomPickerState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB2C0FE31AAE5D1300416129 /* RomPickerState.cpp */; };
 		FB32521E1AAB961C00035082 /* Chip8CPU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB32521C1AAB961C00035082 /* Chip8CPU.cpp */; };
 		FB3252221AAB976E00035082 /* Chip8Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB3252201AAB976E00035082 /* Chip8Renderer.cpp */; };
 /* End PBXBuildFile section */
@@ -107,6 +109,10 @@
 		FB2524D41AAC623D0075ADE5 /* Chip8Keyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chip8Keyboard.h; sourceTree = "<group>"; };
 		FB279FA01AA261E000368449 /* OpCodeActions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpCodeActions.cpp; sourceTree = "<group>"; };
 		FB279FA11AA261E000368449 /* OpCodeActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpCodeActions.h; sourceTree = "<group>"; };
+		FB2C0FDF1AAE5B2900416129 /* UIRomPicker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIRomPicker.cpp; sourceTree = "<group>"; };
+		FB2C0FE01AAE5B2900416129 /* UIRomPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIRomPicker.h; sourceTree = "<group>"; };
+		FB2C0FE31AAE5D1300416129 /* RomPickerState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RomPickerState.cpp; sourceTree = "<group>"; };
+		FB2C0FE41AAE5D1300416129 /* RomPickerState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RomPickerState.h; sourceTree = "<group>"; };
 		FB32521C1AAB961C00035082 /* Chip8CPU.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Chip8CPU.cpp; sourceTree = "<group>"; };
 		FB32521D1AAB961C00035082 /* Chip8CPU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chip8CPU.h; sourceTree = "<group>"; };
 		FB3252201AAB976E00035082 /* Chip8Renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Chip8Renderer.cpp; sourceTree = "<group>"; };
@@ -228,20 +234,24 @@
 		81CFA14219EE9177003C8436 /* AppSource */ = {
 			isa = PBXGroup;
 			children = (
-				FB243D4A1A98CBE700EFAC69 /* Chip8State.cpp */,
-				FB243D4B1A98CBE700EFAC69 /* Chip8State.h */,
 				81CFA14319EE9177003C8436 /* App.cpp */,
 				81CFA14419EE9177003C8436 /* App.h */,
-				FB279FA01AA261E000368449 /* OpCodeActions.cpp */,
-				FB279FA11AA261E000368449 /* OpCodeActions.h */,
+				FB3252231AAB9BDB00035082 /* Chip8Constants.h */,
 				FB32521C1AAB961C00035082 /* Chip8CPU.cpp */,
 				FB32521D1AAB961C00035082 /* Chip8CPU.h */,
-				FB3252201AAB976E00035082 /* Chip8Renderer.cpp */,
-				FB3252211AAB976E00035082 /* Chip8Renderer.h */,
-				FB3252231AAB9BDB00035082 /* Chip8Constants.h */,
-				FB3252241AAB9E5B00035082 /* Chip8MutableState.h */,
 				FB2524D31AAC623D0075ADE5 /* Chip8Keyboard.cpp */,
 				FB2524D41AAC623D0075ADE5 /* Chip8Keyboard.h */,
+				FB3252241AAB9E5B00035082 /* Chip8MutableState.h */,
+				FB3252201AAB976E00035082 /* Chip8Renderer.cpp */,
+				FB3252211AAB976E00035082 /* Chip8Renderer.h */,
+				FB243D4A1A98CBE700EFAC69 /* Chip8State.cpp */,
+				FB243D4B1A98CBE700EFAC69 /* Chip8State.h */,
+				FB279FA01AA261E000368449 /* OpCodeActions.cpp */,
+				FB279FA11AA261E000368449 /* OpCodeActions.h */,
+				FB2C0FE31AAE5D1300416129 /* RomPickerState.cpp */,
+				FB2C0FE41AAE5D1300416129 /* RomPickerState.h */,
+				FB2C0FDF1AAE5B2900416129 /* UIRomPicker.cpp */,
+				FB2C0FE01AAE5B2900416129 /* UIRomPicker.h */,
 			);
 			name = AppSource;
 			path = ../../AppSource;
@@ -366,6 +376,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB2C0FE51AAE5D1300416129 /* RomPickerState.cpp in Sources */,
+				FB2C0FE11AAE5B2900416129 /* UIRomPicker.cpp in Sources */,
 				81CFA14719EE9177003C8436 /* App.cpp in Sources */,
 				FB2524D51AAC623D0075ADE5 /* Chip8Keyboard.cpp in Sources */,
 				FB279FA21AA261E000368449 /* OpCodeActions.cpp in Sources */,

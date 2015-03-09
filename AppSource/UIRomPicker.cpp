@@ -2,6 +2,7 @@
 
 #include <ChilliSource/Core/Base.h>
 #include <ChilliSource/Core/File.h>
+#include <ChilliSource/Core/Math/Random.h>
 #include <ChilliSource/UI/Base.h>
 
 //----------------------------------------------------------------
@@ -17,7 +18,8 @@ void UIRomPicker::Show(const std::function<void(const std::string&)>& in_selectD
 
 	if (romPaths.size() > 0)
 	{
-		in_selectDelegate(romPaths[0]);
+        auto index = CSCore::Random::Generate<std::size_t>(0, romPaths.size()-1);
+		in_selectDelegate("Roms/" + romPaths[index]);
 	}
 	else
 	{

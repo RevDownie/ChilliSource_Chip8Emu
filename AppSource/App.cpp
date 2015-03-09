@@ -28,7 +28,7 @@
 
 #include <App.h>
 
-#include <Chip8State.h>
+#include "RomPickerState.h"
 
 CSCore::Application* CreateApplication()
 {
@@ -49,7 +49,7 @@ namespace CSChip8Emulator
 
     void App::PushInitialState()
     {
-        GetStateManager()->Push(CSCore::StateSPtr(new Chip8State()));
+        GetStateManager()->Push(CSCore::StateSPtr(new RomPickerState()));
     }
 
     void App::OnDestroy()
