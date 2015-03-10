@@ -17,6 +17,7 @@
     <ClCompile Include="..\..\AppSource\Chip8Renderer.cpp" />
     <ClCompile Include="..\..\AppSource\Chip8State.cpp" />
     <ClCompile Include="..\..\AppSource\OpCodeActions.cpp" />
+    <ClCompile Include="..\..\AppSource\RomPickerState.cpp" />
     <ClCompile Include="..\..\AppSource\UIRomPicker.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -28,6 +29,7 @@
     <ClInclude Include="..\..\AppSource\Chip8Renderer.h" />
     <ClInclude Include="..\..\AppSource\Chip8State.h" />
     <ClInclude Include="..\..\AppSource\OpCodeActions.h" />
+    <ClInclude Include="..\..\AppSource\RomPickerState.h" />
     <ClInclude Include="..\..\AppSource\UIRomPicker.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

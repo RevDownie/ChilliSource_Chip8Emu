@@ -9,6 +9,8 @@
 #ifndef _CHIP8CONSTANTS_H_
 #define _CHIP8CONSTANTS_H_
 
+#include <ChilliSource/Core/Base.h>
+
 namespace Chip8Constants
 {
     const u32 k_framesPerSecond = 60;
@@ -24,6 +26,9 @@ namespace Chip8Constants
     const u32 k_numKeys = 16;
     
     const u32 k_initMemOffset = 0x200;
+
+	const CSCore::Colour k_backgroundColour(231.0f / 255.0f, 197.0f / 255.0f, 74.0f / 255.0f, 1.0f);
+	const CSCore::Colour k_foregroundColour(231.0f / 255.0f, 74.0f / 255.0f, 108.0f / 255.0f, 1.0f);
     
     const u8 k_fontSet[80] =
     {
