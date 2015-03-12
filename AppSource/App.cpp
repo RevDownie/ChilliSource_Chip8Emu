@@ -28,6 +28,9 @@
 
 #include <App.h>
 
+#include <ChilliSource/Core/Resource.h>
+#include <ChilliSource/UI/Base.h>
+
 #include "RomPickerState.h"
 
 CSCore::Application* CreateApplication()
@@ -44,7 +47,11 @@ namespace CSChip8Emulator
 
     void App::OnInit()
     {
-        //initialisation stuff here.
+		auto resourcePool = CSCore::Application::Get()->GetResourcePool();
+		auto widgetFactory = CSCore::Application::Get()->GetWidgetFactory();
+
+		auto pickerDef = resourcePool->LoadResource<CSUI::WidgetDef>(CSCore::StorageLocation::k_package, "UI/Picker.csuidef");
+		widgetFactory->RegisterDefinition(pickerDef);
     }
 
     void App::PushInitialState()

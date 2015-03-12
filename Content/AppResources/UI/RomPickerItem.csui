@@ -1,0 +1,25 @@
+{
+    "Type": "Widget",
+    "Name": "Item",
+    "RelSize": "1 1",
+
+     "Children": [
+     {
+         "Type": "HighlightButton",
+         "Name": "Button",
+         "RelPosition": "0.0 0.0",
+         "RelSize": "0.1 1.0",
+         "NormalDrawable": {
+             "Type": "Standard",
+             "TexturePath": "PowerButton.png",
+             "Colour": "1.0 1.0 1.0 1.0"
+         },
+
+         "HighlightDrawable": {
+           "Type": "Standard",
+           "TexturePath": "PowerButton.png",
+           "Colour": "1.0 1.0 1.0 0.6"
+         }
+     }
+     ]
+}

@@ -1,0 +1,18 @@
+{
+    "Type": "Picker",
+    "Components": [
+    {
+        "Type": "Layout",
+        "Name": "Layout"
+    }
+    ],
+ 
+    "ComponentPropertyLinks": {
+        "Layout": "all"
+    },
+ 
+    "DefaultPropertyValues": {
+        "Name": "Picker",
+        "InputConsumeEnabled": "true"
+    }
+}

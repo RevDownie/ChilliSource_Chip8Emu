@@ -9,7 +9,7 @@
 //----------------------------------------------------------------
 void RomPickerState::OnInit()
 {
-    m_picker.Show([=](const std::string& in_romPath)
+	m_picker.Show(GetUICanvas(), [=](const std::string& in_romPath)
     {
         if (in_romPath.size() > 0)
         {
