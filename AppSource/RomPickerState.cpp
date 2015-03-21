@@ -4,11 +4,14 @@
 
 #include <ChilliSource/Core/Base.h>
 #include <ChilliSource/Core/File.h>
+#include <ChilliSource/Core/Scene.h>
 
 //----------------------------------------------------------------
 //----------------------------------------------------------------
 void RomPickerState::OnInit()
 {
+	GetScene()->SetClearColour(Chip8Constants::k_backgroundColour);
+
 	m_picker.Show(GetUICanvas(), [=](const std::string& in_romPath)
     {
         if (in_romPath.size() > 0)

@@ -22,11 +22,17 @@ public:
 	/// @param in_selectDelegate - Function called when rom is picked.
 	//----------------------------------------------------------------
 	void Show(CSUI::Canvas* in_canvas, const std::function<void(const std::string&)>& in_selectDelegate);
-
+	//----------------------------------------------------------------
+	/// Destructor
+	///
+	/// @author S Downie
+	//----------------------------------------------------------------
+	~UIRomPicker();
 private:
 
 	std::vector<CSCore::EventConnectionUPtr> m_pickerItemConnections;
-	CSUI::Canvas* m_canvas;
+	CSUI::Canvas* m_canvas = nullptr;
+	CSUI::WidgetSPtr m_picker;
 };
 
 #endif

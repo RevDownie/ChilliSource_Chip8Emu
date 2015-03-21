@@ -1,20 +1,10 @@
 {
-    "Type": "Widget",
-    "Name": "Picker",
-    "RelSize": "1 1",
-
-     "Children": [
-     {
-         "Type": "Picker",
-         "Name": "List",
-         "RelPosition": "0.0 0.0",
-         "OriginAnchor" : "MiddleCentre",
-         "ParentalAnchor" : "MiddleCentre",
-         "RelSize": "1 1",
-         "Layout": {
-             "Type": "VList",
-             "NumCells": "50"
-         }
-     }
-     ]
+  "Type": "Picker",
+  "Name": "Picker",
+  "RelSize": "0.95 0.95",
+  "Layout": {
+    "Type": "Grid",
+    "NumCols": "5",
+    "NumRows": "5"
+  }
 }

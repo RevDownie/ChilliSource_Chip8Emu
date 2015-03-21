@@ -1,25 +1,39 @@
 {
-    "Type": "Widget",
-    "Name": "Item",
-    "RelSize": "1 1",
-
-     "Children": [
-     {
-         "Type": "HighlightButton",
-         "Name": "Button",
-         "RelPosition": "0.0 0.0",
-         "RelSize": "0.1 1.0",
-         "NormalDrawable": {
-             "Type": "Standard",
-             "TexturePath": "PowerButton.png",
-             "Colour": "1.0 1.0 1.0 1.0"
-         },
-
-         "HighlightDrawable": {
-           "Type": "Standard",
-           "TexturePath": "PowerButton.png",
-           "Colour": "1.0 1.0 1.0 0.6"
-         }
-     }
-     ]
+  "Type": "Widget",
+  "Name": "Item",
+  "RelSize": "1 1",
+  "Children": [
+    {
+      "Type": "HighlightButton",
+      "Name": "Button",
+      "RelPosition": "0.0 0.0",
+      "RelSize": "1.0 0.8",
+      "SizePolicy": "FitMaintainingAspect",
+      "OriginAnchor": "TopCentre",
+      "ParentalAnchor": "TopCentre",
+      "NormalDrawable": {
+        "Type": "Standard",
+        "TexturePath": "RomIcon.png",
+        "Colour": "1.0 1.0 1.0 1.0"
+      },
+      "HighlightDrawable": {
+        "Type": "Standard",
+        "TexturePath": "RomIcon.png",
+        "Colour": "1.0 1.0 1.0 0.6"
+      }
+    },
+    {
+      "Type": "Label",
+      "Name": "Text",
+      "RelPosition": "0.0 0.01",
+      "OriginAnchor": "BottomCentre",
+      "ParentalAnchor": "BottomCentre",
+      "HorizontalJustification": "Centre",
+      "VerticalJustification": "Bottom",
+      "RelSize": "1.0 1.0",
+      "Text": "BLINK.c8",
+      "TextColour": "0.905 0.29 0.42 1.0",
+      "TextScale": "0.75"
+    }
+  ]
 }

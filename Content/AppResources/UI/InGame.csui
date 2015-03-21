@@ -1,48 +1,45 @@
 {
-    "Type": "Widget",
-    "Name": "InGame",
-    "RelSize": "1 1",
-
-     "Children": [
-     {
-         "Type": "HighlightButton",
-         "Name": "ResetButton",
-         "RelPosition": "-0.01 0.01",
-         "OriginAnchor" : "BottomRight",
-         "ParentalAnchor" : "BottomRight",
-         "RelSize": "0.1 0.1",
-         "SizePolicy" : "FitMaintainingAspect",
-         "NormalDrawable": {
-             "Type": "Standard",
-             "TexturePath": "PowerButton.png",
-             "Colour": "1.0 1.0 1.0 0.5"
-         },
-
-         "HighlightDrawable": {
-           "Type": "Standard",
-           "TexturePath": "PowerButton.png",
-           "Colour": "1.0 1.0 1.0 1.0"
-         }
-     },
-     {
-         "Type": "HighlightButton",
-         "Name": "PauseButton",
-         "RelPosition": "0.01 0.01",
-         "OriginAnchor" : "BottomLeft",
-         "ParentalAnchor" : "BottomLeft",
-         "RelSize": "0.1 0.1",
-         "SizePolicy" : "FitMaintainingAspect",
-         "NormalDrawable": {
-             "Type": "Standard",
-             "TexturePath": "PauseButton.png",
-             "Colour": "1.0 1.0 1.0 0.5"
-         },
-
-         "HighlightDrawable": {
-           "Type": "Standard",
-           "TexturePath": "PauseButton.png",
-           "Colour": "1.0 1.0 1.0 1.0"
-         }
-     }
-     ]
+  "Type": "Widget",
+  "Name": "InGame",
+  "RelSize": "1 1",
+  "Children": [
+    {
+      "Type": "HighlightButton",
+      "Name": "ResetButton",
+      "RelPosition": "-0.01 0.01",
+      "OriginAnchor": "BottomRight",
+      "ParentalAnchor": "BottomRight",
+      "RelSize": "0.1 0.1",
+      "SizePolicy": "FitMaintainingAspect",
+      "NormalDrawable": {
+        "Type": "Standard",
+        "TexturePath": "PowerButton.png",
+        "Colour": "1.0 1.0 1.0 0.5"
+      },
+      "HighlightDrawable": {
+        "Type": "Standard",
+        "TexturePath": "PowerButton.png",
+        "Colour": "1.0 1.0 1.0 1.0"
+      }
+    },
+    {
+      "Type": "HighlightButton",
+      "Name": "PauseButton",
+      "RelPosition": "0.01 0.01",
+      "OriginAnchor": "BottomLeft",
+      "ParentalAnchor": "BottomLeft",
+      "RelSize": "0.1 0.1",
+      "SizePolicy": "FitMaintainingAspect",
+      "NormalDrawable": {
+        "Type": "Standard",
+        "TexturePath": "PauseButton.png",
+        "Colour": "1.0 1.0 1.0 0.5"
+      },
+      "HighlightDrawable": {
+        "Type": "Standard",
+        "TexturePath": "PauseButton.png",
+        "Colour": "1.0 1.0 1.0 1.0"
+      }
+    }
+  ]
 }
